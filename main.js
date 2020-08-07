@@ -13,7 +13,7 @@ const buildCounter = () => {
 
   for (let i = 0; i < playerArray.length; i++) {
   domString +=      `<div class="counter--card">
-                        <h3 class="counter--header">${playerArray[i].name} ${i + 1}</h3>
+                        <h3 class="counter--header">${playerArray[i].name}</h3>
                         <div class="counter--value score--${i}">${playerArray[i].score}</div>
                         <div class="counter--buttons">
                             <button id="decrease--${i}">Decrease</button>
@@ -21,8 +21,11 @@ const buildCounter = () => {
                             <button id="increase--${i}">Increase</button>
                         </div>
                         <div class="submit--name">
-                            <input type="text" class="player--input" id="player-submit--${i}" placeholder="Input Name Here">
+                            <input type="text" id="player-submit--${i}" placeholder="Player Name">
                             <button type="submit" class="name--button" id="player-button--${i}">Submit Name</button>
+                        </div>
+                        <div class="remove--player">
+                            <button id="remove--${i}" type="button">Remove Player</button>
                         </div>
                     </div>`;
   }
@@ -80,10 +83,24 @@ const addPlayer = () => {
     init();
 }
 
+const removePlayer = (e) => {
+    const ctype = e.target.type;
+    const target = e.target.id;
+    if (ctype === 'button') {
+        playerArray.splice(target, 1);
+        init();
+    }
+}
+
 const buttonEvent = () => {
-    document.querySelector('#counterContainer').addEventListener('click', changeScore);
     document.querySelector('#addButton').addEventListener('click', addPlayer);
-    document.querySelector('#counterContainer').addEventListener('click', changeName);
+    for (let i = 0; i < playerArray.length; i++) {
+    document.querySelector(`#player-button--${i}`).addEventListener('click', changeName);
+    document.querySelector(`#decrease--${i}`).addEventListener('click', changeScore);
+    document.querySelector(`#increase--${i}`).addEventListener('click', changeScore);
+    document.querySelector(`#reset--${i}`).addEventListener('click', changeScore);
+    document.querySelector(`#remove--${i}`).addEventListener('click', removePlayer);
+    }
 }
 
 const init = () => {
