@@ -10,6 +10,7 @@ body {
 
 .counter--container {
     display: flex;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
     margin-top: 10%;
@@ -20,6 +21,7 @@ body {
     border: 5px solid #DAA588;
     width: 30%;
     height: 50%;
+    margin: 1%;
 }
 
 .counter--header {
@@ -41,4 +43,9 @@ body {
 
 .counter--buttons button {
     background: none;
+}
+
+.add--container {
+   display: flex;
+   justify-content: center;
 }
