@@ -11,7 +11,7 @@ const buildCounter = () => {
   let domString =  ''
   
 
-  for (let i = 0; i < playerArray.length; i++)
+  for (let i = 0; i < playerArray.length; i++) {
   domString +=      `<div class="counter--card">
                         <h3 class="counter--header">${playerArray[i].name} ${i + 1}</h3>
                         <div class="counter--value score--${i}">${playerArray[i].score}</div>
@@ -20,7 +20,12 @@ const buildCounter = () => {
                             <button id="reset--${i}">Reset</button>
                             <button id="increase--${i}">Increase</button>
                         </div>
+                        <div class="submit--name">
+                            <input type="text" class="player--input" id="player-submit--${i}" placeholder="Input Name Here">
+                            <button type="submit" class="name--button" id="player-button--${i}">Submit Name</button>
+                        </div>
                     </div>`;
+  }
 
   printToDom('counterContainer', domString);
 };
@@ -43,6 +48,17 @@ const changeColor = () => {
     }
 }
 
+const changeName = (e) => {
+    const target = e.target.id;
+
+    for (let i = 0; i < playerArray.length; i++) {
+        if (target === `player-button--${i}`) {
+            const name = document.querySelector(`#player-submit--${i}`).value;
+            playerArray[i].name = name;
+        }
+    }
+    init();
+}
 
 const changeScore = (e) => {
     const target = e.target.id;
@@ -65,12 +81,9 @@ const addPlayer = () => {
 }
 
 const buttonEvent = () => {
-    for (let i = 0; i < playerArray.length; i++) {
-    document.querySelector(`#decrease--${i}`).addEventListener('click', changeScore);
-    document.querySelector(`#increase--${i}`).addEventListener('click', changeScore);
-    document.querySelector(`#reset--${i}`).addEventListener('click', changeScore);
-    }
-    document.querySelector('#addButton').addEventListener('click', addPlayer)
+    document.querySelector('#counterContainer').addEventListener('click', changeScore);
+    document.querySelector('#addButton').addEventListener('click', addPlayer);
+    document.querySelector('#counterContainer').addEventListener('click', changeName);
 }
 
 const init = () => {
