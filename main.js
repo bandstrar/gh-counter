@@ -3,7 +3,8 @@
 const playerArray = [
     {
     name: 'Player',
-    score: 0
+    health: 0,
+    exp: 0
 },
 ]
 
@@ -14,11 +15,22 @@ const buildCounter = () => {
   for (let i = 0; i < playerArray.length; i++) {
   domString +=      `<div class="counter--card">
                         <h3 class="counter--header">${playerArray[i].name}</h3>
-                        <div class="counter--value score--${i}">${playerArray[i].score}</div>
+                        <div class="health-exp--container">
+                            <div class="counter--value health--${i}">${playerArray[i].health}</div>
+                            <div class="counter--image"><img src="./images/01 Brute.png"></div>
+                            <div class="exp--value exp--${i}">${playerArray[i].exp}</div>
+                        </div>
+                        <div class="counter-buttons--container">
                         <div class="counter--buttons">
-                            <button id="decrease--${i}">Decrease</button>
-                            <button id="reset--${i}">Reset</button>
-                            <button id="increase--${i}">Increase</button>
+                            <button id="decrease-health--${i}">Decrease</button>
+                            <button id="reset-health--${i}">Reset</button>
+                            <button id="increase-health--${i}">Increase</button>
+                        </div>
+                        <div class="counter--buttons">
+                            <button id="decrease-exp--${i}">Decrease</button>
+                            <button id="reset-exp--${i}">Reset</button>
+                            <button id="increase-exp--${i}">Increase</button>
+                        </div>
                         </div>
                         <div class="submit--name">
                             <input type="text" id="player-submit--${i}" placeholder="Player Name">
@@ -39,14 +51,12 @@ const printToDom = (divId, textToPrint) => {
 };
 
 const changeColor = () => {
-
+    
     for (let i = 0; i < playerArray.length; i++) {
-        if (playerArray[i].score === 0) {
-            document.querySelector(`.score--${i}`).style.color = '#DAA588';
-        } else if (playerArray[i].score < 0) {
-            document.querySelector(`.score--${i}`).style.color = '#F56960';
-        } else if (playerArray[i].score > 0) {
-            document.querySelector(`.score--${i}`).style.color = '#9DCBBA';
+        if (playerArray[i].health > 5) {
+            document.querySelector(`.health--${i}`).style.color = '#9DCBBA';
+        } else if (playerArray[i].health >= 0 && playerArray[i].health <= 5) {
+            document.querySelector(`.health--${i}`).style.color = '#F56960';
         }
     }
 }
@@ -63,23 +73,37 @@ const changeName = (e) => {
     init();
 }
 
-const changeScore = (e) => {
+const changeHealth = (e) => {
     const target = e.target.id;
 
     for (let i = 0; i < playerArray.length; i++) {
-        if (target === `decrease--${i}` && playerArray[i].score > 0) {
-            playerArray[i].score -= 1;
-        } else if (target === `increase--${i}`) {
-            playerArray[i].score += 1;
-        } else if (target === `reset--${i}`) {
-            playerArray[i].score = 0;
+        if (target === `decrease-health--${i}` && playerArray[i].health > 0) {
+            playerArray[i].health -= 1;
+        } else if (target === `increase-health--${i}`) {
+            playerArray[i].health += 1;
+        } else if (target === `reset-health--${i}`) {
+            playerArray[i].health = 0;
+        }
+    }
+    init();
+}
+const changeExp = (e) => {
+    const target = e.target.id;
+
+    for (let i = 0; i < playerArray.length; i++) {
+        if (target === `decrease-exp--${i}` && playerArray[i].exp > 0) {
+            playerArray[i].exp -= 1;
+        } else if (target === `increase-exp--${i}`) {
+            playerArray[i].exp += 1;
+        } else if (target === `reset-exp--${i}`) {
+            playerArray[i].exp = 0;
         }
     }
     init();
 }
 
 const addPlayer = () => {
-    playerArray.push({name: 'Player', score: 0})
+    playerArray.push({name: 'Player', health: 0, exp: 0})
     init();
 }
 
@@ -96,9 +120,12 @@ const buttonEvent = () => {
     document.querySelector('#addButton').addEventListener('click', addPlayer);
     for (let i = 0; i < playerArray.length; i++) {
     document.querySelector(`#player-button--${i}`).addEventListener('click', changeName);
-    document.querySelector(`#decrease--${i}`).addEventListener('click', changeScore);
-    document.querySelector(`#increase--${i}`).addEventListener('click', changeScore);
-    document.querySelector(`#reset--${i}`).addEventListener('click', changeScore);
+    document.querySelector(`#decrease-health--${i}`).addEventListener('click', changeHealth);
+    document.querySelector(`#increase-health--${i}`).addEventListener('click', changeHealth);
+    document.querySelector(`#reset-health--${i}`).addEventListener('click', changeHealth);
+    document.querySelector(`#decrease-exp--${i}`).addEventListener('click', changeExp);
+    document.querySelector(`#increase-exp--${i}`).addEventListener('click', changeExp);
+    document.querySelector(`#reset-exp--${i}`).addEventListener('click', changeExp);
     document.querySelector(`#remove--${i}`).addEventListener('click', removePlayer);
     }
 }

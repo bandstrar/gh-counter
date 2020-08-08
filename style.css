@@ -19,9 +19,12 @@ body {
 .counter--card {
     text-align: center;
     border: 5px solid #DAA588;
-    width: 30%;
+    border-radius: 200px;
+    width: 50%;
     height: 50%;
     margin: 1%;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,30,15,1) 0%, rgba(153,18,18,1) 40%, rgba(21,11,113,1) 60%, rgba(0,0,255,1) 100%);
 }
 
 .counter--header {
@@ -33,12 +36,20 @@ body {
 .counter--value {
     font-size: 100px;
     margin-top: 0px;
+    margin-left: 100px;
+    background-color: white;
+}
+
+.exp--value {
+    font-size: 100px;
+    margin-top: 0px;
+    margin-right: 100px;
+    color: #0000ff;
+    background-color: white;
 }
 
 .counter--buttons {
     margin: 20px;
-    display: flex;
-    justify-content: space-around;
 }
 
 .counter--buttons button {
@@ -48,4 +59,21 @@ body {
 .add--container {
    display: flex;
    justify-content: center;
+}
+
+.health-exp--container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.counter-buttons--container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+img {
+    width: 100px;
+    height: 100px;
 }
